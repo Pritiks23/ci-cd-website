@@ -3,21 +3,19 @@ name: CI/CD
 on:
   push:
     branches:
-      - main  # Trigger on commits to main branch
+      - main  # or master if your branch is master
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout code from main branch
       - uses: actions/checkout@v3
 
-      # Step 2: Deploy to GitHub Pages (gh-pages branch)
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v6
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./       # Deploy all files in root
-          publish_branch: gh-pages  # <-- Important: deploys to gh-pages branch
-          force_orphan: true       # <-- Ensures clean deployment
+          publish_dir: ./       # deploy root
+          publish_branch: gh-pages
+          force_orphan: true
